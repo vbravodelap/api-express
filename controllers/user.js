@@ -164,28 +164,28 @@ var controller = {
                     return res.status(200).send({
                         message: 'El mail no puede ser modificado.'
                     });
-                }
-            });
-        }else{
-            User.findByIdAndUpdate({ _id: userId }, params, { new: true }, (err, userUpdated) => {
-                if(err) {
-                    return res.status(500).send({
-                        status: 'error',
-                        message: 'Error al actualizar el usuario'
+                }else{
+                    User.findByIdAndUpdate({ _id: userId }, params, { new: true }, (err, userUpdated) => {
+                        if(err) {
+                            return res.status(500).send({
+                                status: 'error',
+                                message: 'Error al actualizar el usuario'
+                            });
+                        }
+        
+                        if(!userUpdated) {
+                            return res.status(500).send({
+                                status: 'error',
+                                message: 'No se ha actualizado el usuario'
+                            });
+                        }
+        
+                        return res.status(200).send({
+                            status: 'success',
+                            userUpdated
+                        });
                     });
                 }
-
-                if(!userUpdated) {
-                    return res.status(500).send({
-                        status: 'error',
-                        message: 'No se ha actualizado el usuario'
-                    });
-                }
-
-                return res.status(200).send({
-                    status: 'success',
-                    userUpdated
-                });
             });
         }
 

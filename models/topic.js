@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate-v2');
 
 var CommentSchema = Schema({
     content: String,
@@ -20,5 +21,7 @@ var TopicSchema = Schema({
     user: { type: Schema.ObjectId, ref: 'User'},
     comments: [CommentSchema]
 });
+
+TopicSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Topic', TopicSchema);
